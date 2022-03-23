@@ -1,10 +1,12 @@
 import Image from 'next/image';
+import Footer from '../../components/organisms/Footer';
+import Navbar from '../../components/organisms/Navbar';
 
 export default function DetailBlog() {
   return (
-    <div>
-      {' '}
-      <div className="h-screen">
+    <>
+      <Navbar />
+      <div className="h-auto">
         <Image
           src="/jumbotron.jpg"
           width={400}
@@ -35,6 +37,7 @@ export default function DetailBlog() {
           </p>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }

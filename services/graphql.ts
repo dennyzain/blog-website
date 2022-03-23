@@ -1,0 +1,59 @@
+import { gql } from '@apollo/client';
+
+export const GETPOSTS = gql`query GetPosts{
+  reviews{
+    data{
+      id,
+      attributes{
+        title,
+        rating,
+        body,
+        thumbnail{
+          data{
+            attributes{
+              url
+            }
+          }
+        },
+        createdAt,
+        categories{
+          data{
+            id,
+            attributes{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}`;
+
+export const GETPOSTDETAIL = gql`query GetPosts{
+  reviews{
+    data{
+      id,
+      attributes{
+        title,
+        rating,
+        body,
+        thumbnail{
+          data{
+            attributes{
+              url
+            }
+          }
+        },
+        createdAt,
+        categories{
+          data{
+            id,
+            attributes{
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}`;

@@ -1,25 +1,30 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import moment from 'moment';
+import { PostProps } from '../../interfaces/GetAllPosts';
 
-export default function Post() {
+const IMG = process.env.NEXT_PUBLIC_IMG;
+export default function Post({ data }: PostProps) {
+  const { attributes } = data;
   return (
-    <div className="h-auto p-3">
+    <div className="h-auto p-3 bg-white dark:bg-slate-800">
       <Image
-        src="/jumbotron.jpg"
+        src={`${IMG}${attributes.thumbnail.data.attributes.url}`}
         width={400}
         height={200}
         alt="jumbotron"
         className="object-cover rounded-lg"
       />
       <div className="px-3">
-        <p className="p-2 text-sm font-roboto ">28 november 2019</p>
-        <h1 className="text-4xl font-poppins font-bold tracking-wide">Apa itu .gitignore?</h1>
+        <p className="p-2 text-sm font-roboto ">
+          {moment(attributes.createdAt).format('dddd, MMMM Do YYYY ')}
+        </p>
+        <h1 className="text-4xl font-poppins font-bold tracking-wide">{attributes.title}</h1>
       </div>
       <div>
         <p className="font-roboto tracking-tight p-4">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium molestias sed possimus
-          ab officiis, consequatur temporibus ipsa perspiciatis magni maiores voluptates modi.
-          <Link href={'#'}>
+          {attributes.body.substring(0, 200)}
+          <Link href="#">
             <p className="py-2 underline underline-offset-1 text-black">Read More...</p>
           </Link>
         </p>

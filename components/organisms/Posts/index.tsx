@@ -1,13 +1,14 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import { PostsProps } from '../../../interfaces/GetAllPosts';
+import Category from '../../molecules/Category';
 import Post from '../../molecules/Post';
 
-export default function Posts() {
+export default function Posts({ data }: PostsProps) {
   return (
     <>
-      <Post />
-      <Post />
-      <Post />
+      <Category />
+      {data.data.map((item) => (
+        <Post data={item} />
+      ))}
     </>
   );
 }
