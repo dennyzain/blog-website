@@ -33,3 +33,6 @@ export interface PostsProps {
 export interface PostProps {
   data: Post;
 }
+export interface DetailPostProps {
+  data: {data:Post}
+}

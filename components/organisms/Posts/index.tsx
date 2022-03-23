@@ -1,13 +1,11 @@
-import { PostsProps } from '../../../interfaces/GetAllPosts';
-import Category from '../../molecules/Category';
-import Post from '../../molecules/Post';
+import { PostsProps } from '../../../interfaces/PostSection';
+import PostComp from '../../molecules/PostComponent';
 
 export default function Posts({ data }: PostsProps) {
   return (
     <>
-      <Category />
       {data.data.map((item) => (
-        <Post data={item} />
+        <PostComp key={item.id} data={item} />
       ))}
     </>
   );
