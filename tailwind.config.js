@@ -3,6 +3,13 @@ module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        'dark-mode': '#22272e',
+        'dark-mode-secondary': '#373e47',
+        'light-mode': '#ffffff',
+        'text-light-mode': '#24292f',
+        'text-dark-mode': '#adbac7',
+      },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto Mono', 'sans-serif'],

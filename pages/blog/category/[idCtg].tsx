@@ -4,13 +4,13 @@ import Footer from '../../../components/organisms/Footer';
 import Navbar from '../../../components/organisms/Navbar';
 import { CategoryFetchAll, CategoryProps } from '../../../interfaces/CategorySection';
 import client from '../../../services/client';
-import { GETCATEGORYALL, GETPOSTFROMCATEGORY } from '../../../services/graphql';
+import { GETCATEGORYALL, GETPOSTFROMCATEGORY, GETUSERS } from '../../../services/graphql';
 
-export default function DetailCategory({ data }: CategoryProps) {
+export default function DetailCategory({ data, user }: CategoryProps) {
   const { reviews } = data.category.data.attributes;
   return (
     <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 ">
-      <Navbar />
+      <Navbar user={user} status="post" />
       <h2 className="p-3 font-roboto">
         Category :
         {' '}
@@ -40,7 +40,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     query: GETPOSTFROMCATEGORY,
     variables: { id: params!.idCtg },
   });
+  const user = await client.query({ query: GETUSERS, variables: { id: 1 } });
+
   return {
-    props: { data },
+    props: { data, user: user.data.usersPermissionsUser.data },
   };
 };

@@ -1,51 +1,84 @@
-import { faBarsStaggered, faX } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeftLong, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import classNames from 'classnames';
+import cx from 'classnames';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { NavbarProps } from '../../../interfaces/PostSection';
+import { Animate } from '../../atoms/Animate';
+import useDarkMode from '../../hooks/useDarkMode';
 import NavbarDesktop from '../../molecules/NavbarDesktop';
 import Profile from '../../molecules/Profile';
 
-export default function Navbar() {
-  const [isBarOpen, setIsBarOpen] = useState(false);
+export default function Navbar({ user, status }: NavbarProps) {
+  const [theme, setTheme] = useDarkMode();
+  const { attributes } = user;
+  const { pathname, push } = useRouter();
+  const pathBlog = '/blog/[id]';
+  const pathCategory = '/blog/category/[idCtg]';
   const [isProfile, setIsProfile] = useState(false);
-  const cxClose = classNames({
-    'self-center': true,
-    hidden: isBarOpen === true,
+  const activeClass = cx({
+    'dark:border-light-mode border-dark-mode border-b-2 ': true,
+    'text-sm md:text-lg xl:text-lg z-10': true,
   });
-  const cxOpen = classNames({
-    hidden: isBarOpen === false,
-  });
-  const handleBar = () => {
-    setIsBarOpen(!isBarOpen);
-  };
-  const handleProfile = () => {
-    setIsProfile(!isProfile);
-  };
+  const handleProfile = () => setIsProfile(!isProfile);
+  const handleBack = () => push('/');
+  const handleDarkMode = () => (theme === 'light' ? setTheme('dark') : setTheme('light'));
+
+  useEffect(() => {
+    localStorage.setItem('user', JSON.stringify(user));
+  }, []);
+
   return (
     <>
-      <div className="flex justify-between py-3 px-6 md:hidden">
-        <button type="button" className="flex" onClick={handleProfile}>
-          <Image src="/01.jpg" width={30} height={30} alt="profile" className="rounded-full" />
-          <p className="self-center text-xs pl-1 font-poppins">Who am i ?</p>
+      <div className="flex justify-between p-3">
+        <h1 className="font-poppins font-extrabold text-xl self-center">DZNX</h1>
+        <button type="button" aria-label="buttondarkmode" className="px-2 py-1 border-2 self-center border-dark-mode rounded-lg dark:border-light-mode" onClick={handleDarkMode}>
+          {theme === 'light' ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
         </button>
-        <FontAwesomeIcon icon={faBarsStaggered} className={cxClose} onClick={handleBar} />
-        <div className={`${cxOpen}  z-10`}>
-          <div className="flex flex-col absolute top-0 h-screen left-0 w-full text-center bg-slate-500 justify-center font-poppins p-3">
-            <p className="text-4xl">Homepage</p>
-            <p className="text-4xl">Contacts</p>
-            <p className="text-4xl">About Us</p>
-            <button type="button" className="flex justify-center" onClick={handleBar}>
-              <FontAwesomeIcon icon={faX} className="self-center" />
-              <p className="self-center p-2 text-xl">close</p>
-            </button>
-          </div>
-        </div>
+      </div>
+      <div className="flex justify-between py-3 px-6 md:hidden ">
+        {pathname === pathBlog || pathname === pathCategory ? (
+          <button onClick={handleBack} type="button" className="font-roboto">
+            <FontAwesomeIcon
+              icon={faArrowLeftLong}
+              bounce
+              className="self-center text-xs pr-1 font-poppins"
+            />
+            back
+          </button>
+        ) : (
+          <button type="button" className="flex" onClick={handleProfile}>
+            <Image
+              src={attributes.profile.data.attributes.url}
+              width={30}
+              height={30}
+              alt="profile"
+              className="rounded-full"
+            />
+            <p className="self-center text-xs pl-1  font-poppins">Who am i ?</p>
+          </button>
+        )}
       </div>
       <div className="hidden md:block transition-all">
-        <NavbarDesktop />
+        <NavbarDesktop img={attributes.profile.data.attributes.url} />
       </div>
-      <Profile disabled={!isProfile} />
+      {isProfile && (
+        <Animate>
+          <Profile />
+        </Animate>
+      )}
+      <div className="flex justify-around font-poppins border-slate-300 border-b-2 md:mt-3 xl:mt-7">
+        <button type="button" className={activeClass}>
+          Post
+        </button>
+        <button type="button" className={activeClass}>
+          Project
+        </button>
+        <button type="button" className={activeClass}>
+          Certificate
+        </button>
+      </div>
     </>
   );
 }

@@ -25,14 +25,38 @@ export interface Post {
   };
 }
 
-export interface PostsProps {
-  data: {
-    data: Post[];
+export interface User {
+  id: string;
+  attributes: {
+    username: string;
+    email: string;
+    profile: {
+      data: {
+        attributes: {
+          url: string;
+        };
+      };
+    };
   };
+}
+
+export interface NavbarProps {
+  user: User;
+  status: string;
+}
+export interface HomeProps {
+  res: {
+    data: Post[];
+    user: User;
+  };
+}
+
+export interface PostsProps {
+  data: Post[];
 }
 export interface PostProps {
   data: Post;
 }
 export interface DetailPostProps {
-  data: {data:Post}
+  data: { data: Post };
 }

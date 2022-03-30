@@ -113,3 +113,24 @@ export const GETCATEGORYALL = gql`
     }
   }
 `;
+
+export const GETUSERS = gql`
+  query GetUser($id: ID!) {
+    usersPermissionsUser(id: $id) {
+      data {
+        id
+        attributes {
+          email
+          username
+          profile {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
