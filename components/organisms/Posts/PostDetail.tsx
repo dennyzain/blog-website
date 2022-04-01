@@ -31,7 +31,7 @@ export default function PostDetail({ data }: DetailPostProps) {
               <button
                 key={category.id}
                 type="button"
-                onClick={() => push(`/blog/category/${category.id}`)}
+                onClick={() => push(`/blog/category/${category.attributes.slug}`)}
                 className="underline underline-offset-1 px-2 pb-2 cursor-pointer "
               >
                 {category.attributes.name}

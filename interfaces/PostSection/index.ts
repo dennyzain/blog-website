@@ -2,8 +2,8 @@ export interface Post {
   id: string;
   attributes: {
     title: string;
-    rating: number;
     body: string;
+    slug:string;
     thumbnail: {
       data: {
         attributes: {
@@ -18,6 +18,7 @@ export interface Post {
           id: string;
           attributes: {
             name: string;
+            slug:string;
           };
         }
       ];

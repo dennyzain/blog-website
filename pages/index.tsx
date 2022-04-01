@@ -23,12 +23,13 @@ export default function Home({ res }: HomeProps) {
 
 export const getStaticProps: GetStaticProps = async () => {
   const { data, error, loading } = await client.query({ query: GETPOSTS });
-  const user = await client.query({ query: GETUSERS, variables: { id: 1 } });
+  const user = await client.query({ query: GETUSERS, variables: { id: 2 } });
+  console.log(data);
   if (error || user.error) {
     return {
       props: {
-        data: null,
-        user: null,
+        data: [],
+        user: [],
       },
     };
   }

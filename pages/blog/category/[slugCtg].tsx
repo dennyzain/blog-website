@@ -1,5 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import PostComp from '../../../components/molecules/PostComponent';
+import Card from '../../../components/molecules/Card';
 import Footer from '../../../components/organisms/Footer';
 import Navbar from '../../../components/organisms/Navbar';
 import { CategoryFetchAll, CategoryProps } from '../../../interfaces/CategorySection';
@@ -7,17 +7,17 @@ import client from '../../../services/client';
 import { GETCATEGORYALL, GETPOSTFROMCATEGORY, GETUSERS } from '../../../services/graphql';
 
 export default function DetailCategory({ data, user }: CategoryProps) {
-  const { reviews } = data.category.data.attributes;
+  const { reviews, name } = data.data.attributes;
   return (
     <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 ">
       <Navbar user={user} status="post" />
       <h2 className="p-3 font-roboto">
         Category :
         {' '}
-        {data.category.data.attributes.name}
+        {name}
       </h2>
       {reviews.data.map((item) => (
-        <PostComp key={item.id} data={item} />
+        <Card key={item.id} data={item} model="category" />
       ))}
       <Footer />
     </div>
@@ -27,7 +27,7 @@ export default function DetailCategory({ data, user }: CategoryProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await client.query({ query: GETCATEGORYALL });
   const paths = data.categories.data.map((category:CategoryFetchAll) => ({
-    params: { idCtg: category.id },
+    params: { slugCtg: category.attributes.slug },
   }));
   return {
     paths,
@@ -36,13 +36,20 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await client.query({
+  const { data, error, loading } = await client.query({
     query: GETPOSTFROMCATEGORY,
-    variables: { id: params!.idCtg },
+    variables: { slug: params!.slugCtg },
   });
-  const user = await client.query({ query: GETUSERS, variables: { id: 1 } });
-
+  const user = await client.query({ query: GETUSERS, variables: { id: 2 } });
+  if (error || user.error) {
+    return {
+      props: {
+        data: null,
+        user: null,
+      },
+    };
+  }
   return {
-    props: { data, user: user.data.usersPermissionsUser.data },
+    props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
   };
 };

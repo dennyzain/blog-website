@@ -22,5 +22,6 @@ export interface CategoryFetchAll{
         id: string;
         attributes: {
           name: string;
+          slug:string;
         }
 }

@@ -26,7 +26,9 @@ export default function NavbarDesktop({ img }: { img: string }) {
             className="rounded-full "
           />
         </div>
-        <p className="font-roboto justify-items-start md:text-xs lg:text-base mt-5">Hello There, Im a Web Developer</p>
+        <p className="font-roboto justify-items-start md:text-xs lg:text-base mt-5">
+          Hello There, Im a Web Developer
+        </p>
         <div className="flex flex-col mt-6">
           <FontAwesomeIcon icon={faFacebookF} className="my-2" />
           <FontAwesomeIcon icon={faTwitter} className="my-2" />

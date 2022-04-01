@@ -19,7 +19,7 @@ export default function DetailBlog({ data, user }: DetailPostProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const { data } = await client.query({ query: GETPOSTS });
   const paths = data.reviews.data.map((post: Post) => ({
-    params: { id: post.id },
+    params: { slug: post.attributes.slug },
   }));
   return {
     paths,
@@ -28,9 +28,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data } = await client.query({ query: GETPOSTDETAIL, variables: { id: params!.id } });
-  const user = await client.query({ query: GETUSERS, variables: { id: 1 } });
+  const { data, error, loading } = await client.query({ query: GETPOSTDETAIL, variables: { slug: params!.slug } });
+  const user = await client.query({ query: GETUSERS, variables: { id: 2 } });
+  if (error || user.error) {
+    return {
+      props: {
+        data: null,
+        user: null,
+      },
+    };
+  }
   return {
-    props: { data: data.review, user: user.data.usersPermissionsUser.data },
+    props: { data: data.findSlug, user: user.data.usersPermissionsUser.data },
   };
 };

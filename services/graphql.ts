@@ -1,45 +1,46 @@
 import { gql } from '@apollo/client';
 
 export const GETPOSTS = gql`
-  query GetPosts {
-    reviews {
-      data {
-        id
-        attributes {
-          title
-          rating
-          body
-          thumbnail {
-            data {
-              attributes {
-                url
-              }
+query GetPosts {
+  reviews {
+    data {
+      id
+      attributes {
+        title
+        body
+        slug
+        thumbnail {
+          data {
+            attributes {
+              url
             }
           }
-          createdAt
-          categories {
-            data {
-              id
-              attributes {
-                name
-              }
+        }
+        createdAt
+        categories {
+          data {
+            id
+            attributes {
+              name
+              slug
             }
           }
         }
       }
     }
   }
+}
 `;
 
 export const GETPOSTDETAIL = gql`
-  query GetPostDetail($id: ID!) {
-    review(id: $id) {
+  query GetPostDetail($slug:String!) {
+    findSlug(modelName:"review",slug:$slug){
+      ...on ReviewEntityResponse{
       data {
         id
         attributes {
           title
           body
-          rating
           thumbnail {
             data {
               id
@@ -60,11 +61,13 @@ export const GETPOSTDETAIL = gql`
       }
     }
   }
+}
 `;
 
 export const GETPOSTFROMCATEGORY = gql`
-  query GetCategoriesDetail($id: ID!) {
-    category(id: $id) {
+  query GetCategoriesDetail($slug:String!) {
+    findSlug(modelName:"category",slug:$slug){
+      ...on CategoryEntityResponse{
       data {
         id
         attributes {
@@ -74,8 +77,8 @@ export const GETPOSTFROMCATEGORY = gql`
               id
               attributes {
                 title
-                rating
                 body
+                slug
                 thumbnail {
                   data {
                     attributes {
@@ -89,6 +92,7 @@ export const GETPOSTFROMCATEGORY = gql`
                     id
                     attributes {
                       name
+                      slug
                     }
                   }
                 }
@@ -99,6 +103,7 @@ export const GETPOSTFROMCATEGORY = gql`
       }
     }
   }
+}
 `;
 
 export const GETCATEGORYALL = gql`
@@ -108,6 +113,7 @@ export const GETCATEGORYALL = gql`
         id
         attributes {
           name
+          slug
         }
       }
     }
@@ -133,4 +139,68 @@ export const GETUSERS = gql`
       }
     }
   }
+`;
+
+export const GETPROJECT = gql`
+  query GetProject {
+    projects {
+      data {
+        id
+        attributes {
+          title
+          body
+          slug
+          thumbnail {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          createdAt
+          categories {
+            data {
+              id
+              attributes {
+                name
+                slug
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+export const GET_PROJECT_DETAIL = gql`
+  query GetProjectDetail($slug:String!) {
+  findSlug(modelName:"project",slug:$slug){
+    ...on ProjectEntityResponse{
+        data{
+          id
+          attributes{
+            title
+            body
+            createdAt
+            
+            thumbnail{
+              data{
+                attributes{
+                  url
+                }
+              }
+            }
+            categories{
+                 data{
+                  attributes{
+                    name
+                  }
+                }
+            }
+            
+          }
+        }
+    }
+  }
+}
 `;
