@@ -8,12 +8,11 @@ import { CardProps } from '../../interfaces/CardSection';
 export default function Card({ data, model }: CardProps) {
   const { attributes } = data;
   const { slug } = attributes;
-  const location = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `category/${slug}`;
+  const location = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `/blog/${slug}`;
   const { push } = useRouter();
-  console.log(attributes.categories);
   return (
     <Animate>
-      <div className="h-auto p-3 pb-3 mb-4 mt-2 border-b-2  rounded-lg dark:bg-dark-mode-secondary transition-colors duration-200 ">
+      <div className="h-auto p-3 pb-3 my-4 mx-2  rounded-lg dark:bg-dark-mode-secondary transition-colors duration-200 ">
         <div className="block lg:h-2/4 lg:w-auto xl:h-2/4 w-auto center ">
           <Image
             src={`${attributes.thumbnail.data.attributes.url}`}
@@ -21,8 +20,8 @@ export default function Card({ data, model }: CardProps) {
             height={230}
             quality={55}
             layout="responsive"
-            sizes="50vw"
             alt="thumbnail"
+            objectFit="cover"
             blurDataURL={`${attributes.thumbnail.data.attributes.url}`}
             placeholder="blur"
             className=" rounded-lg"
@@ -33,7 +32,7 @@ export default function Card({ data, model }: CardProps) {
             {moment(attributes.createdAt).format('dddd, MMMM Do YYYY ')}
           </p>
           <div className="flex font-roboto">
-            {attributes.categories.data.map((category) => (
+            {model !== 'certificate' && attributes.categories.data.map((category) => (
               <button
                 key={category.id}
                 type="button"
@@ -64,6 +63,7 @@ export default function Card({ data, model }: CardProps) {
           </button>
         </Link>
       </div>
+      <hr />
     </Animate>
   );
 }

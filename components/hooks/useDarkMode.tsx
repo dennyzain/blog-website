@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
-export default function useDarkMode() {
-  const [theme, setTheme] = useState<string>('light');
+const useDarkMode = () => {
+  const [theme, setTheme] = useState<string>('');
+
+  useEffect(() => {
+    const local = localStorage.getItem('theme');
+    setTheme(local!);
+  }, []);
+
   useEffect(() => {
     if (theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
       document.documentElement.classList.add('dark');
@@ -19,15 +25,10 @@ export default function useDarkMode() {
     document.documentElement.classList.add('transition-colors');
     document.documentElement.classList.add('duration-500');
 
-    return () => { localStorage.setItem('theme', theme); };
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
-  useEffect(() => {
-    const local = localStorage.getItem('theme');
-    if (local) {
-      setTheme(local);
-    }
-  }, []);
-
   return [theme, setTheme] as const;
-}
+};
+
+export default useDarkMode;

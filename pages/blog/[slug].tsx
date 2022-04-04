@@ -3,8 +3,8 @@ import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import PostDetail from '../../components/organisms/Posts/PostDetail';
 import { DetailPostProps, Post } from '../../interfaces/PostSection';
-import client from '../../services/client';
-import { GETPOSTDETAIL, GETPOSTS, GETUSERS } from '../../services/graphql';
+import client, { initializeApollo } from '../../services/client';
+import { GET_POST_DETAIL, GET_POSTS, GET_USERS } from '../../services/graphql';
 
 export default function DetailBlog({ data, user }: DetailPostProps) {
   return (
@@ -17,7 +17,8 @@ export default function DetailBlog({ data, user }: DetailPostProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query({ query: GETPOSTS });
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({ query: GET_POSTS });
   const paths = data.reviews.data.map((post: Post) => ({
     params: { slug: post.attributes.slug },
   }));
@@ -28,8 +29,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data, error, loading } = await client.query({ query: GETPOSTDETAIL, variables: { slug: params!.slug } });
-  const user = await client.query({ query: GETUSERS, variables: { id: 2 } });
+  const apolloClient = initializeApollo();
+  const { data, error, loading } = await apolloClient.query({ query: GET_POST_DETAIL, variables: { slug: params!.slug } });
+  const user = await apolloClient.query({ query: GET_USERS, variables: { id: 1 } });
   if (error || user.error) {
     return {
       props: {

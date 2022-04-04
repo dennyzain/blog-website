@@ -3,8 +3,8 @@ import Card from '../../../components/molecules/Card';
 import Footer from '../../../components/organisms/Footer';
 import Navbar from '../../../components/organisms/Navbar';
 import { CategoryFetchAll, CategoryProps } from '../../../interfaces/CategorySection';
-import client from '../../../services/client';
-import { GETCATEGORYALL, GETPOSTFROMCATEGORY, GETUSERS } from '../../../services/graphql';
+import client, { initializeApollo } from '../../../services/client';
+import { GET_USERS, GET_CATEGORIES, GET_POST_FROM_CATEGORY } from '../../../services/graphql';
 
 export default function DetailCategory({ data, user }: CategoryProps) {
   const { reviews, name } = data.data.attributes;
@@ -25,7 +25,8 @@ export default function DetailCategory({ data, user }: CategoryProps) {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { data } = await client.query({ query: GETCATEGORYALL });
+  const apolloClient = initializeApollo();
+  const { data } = await apolloClient.query({ query: GET_CATEGORIES });
   const paths = data.categories.data.map((category:CategoryFetchAll) => ({
     params: { slugCtg: category.attributes.slug },
   }));
@@ -36,11 +37,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { data, error, loading } = await client.query({
-    query: GETPOSTFROMCATEGORY,
+  const apolloClient = initializeApollo();
+  const { data, error, loading } = await apolloClient.query({
+    query: GET_POST_FROM_CATEGORY,
     variables: { slug: params!.slugCtg },
   });
-  const user = await client.query({ query: GETUSERS, variables: { id: 2 } });
+  const user = await apolloClient.query({ query: GET_USERS, variables: { id: 1 } });
   if (error || user.error) {
     return {
       props: {

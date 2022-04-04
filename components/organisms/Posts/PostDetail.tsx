@@ -6,6 +6,7 @@ import { Animate } from '../../atoms/Animate';
 
 export default function PostDetail({ data }: DetailPostProps) {
   const { attributes } = data.data;
+  console.log(attributes)
   const { push } = useRouter();
   return (
     <Animate>

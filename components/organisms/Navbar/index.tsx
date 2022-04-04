@@ -17,6 +17,7 @@ export default function Navbar({ user, status }: NavbarProps) {
   const {
     push, route,
   } = useRouter();
+
   const pathBlog = '/blog/[slug]';
   const pathCategory = '/blog/category/[slugCtg]';
   const [isProfile, setIsProfile] = useState(false);
@@ -29,7 +30,6 @@ export default function Navbar({ user, status }: NavbarProps) {
   const handleDarkMode = () => (theme === 'light' ? setTheme('dark') : setTheme('light'));
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user));
   }, []);
 
   return (
@@ -61,8 +61,8 @@ export default function Navbar({ user, status }: NavbarProps) {
               src={attributes.profile.data.attributes.url}
               blurDataURL={attributes.profile.data.attributes.url}
               placeholder="blur"
-              width={30}
-              height={30}
+              width={40}
+              height={40}
               alt="profile"
               className="rounded-full"
 

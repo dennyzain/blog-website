@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-export const GETPOSTS = gql`
+export const GET_POSTS = gql`
 query GetPosts {
   reviews {
     data {
@@ -32,7 +32,7 @@ query GetPosts {
 }
 `;
 
-export const GETPOSTDETAIL = gql`
+export const GET_POST_DETAIL = gql`
   query GetPostDetail($slug:String!) {
     findSlug(modelName:"review",slug:$slug){
       ...on ReviewEntityResponse{
@@ -54,6 +54,7 @@ export const GETPOSTDETAIL = gql`
               id
               attributes {
                 name
+                slug
               }
             }
           }
@@ -64,7 +65,7 @@ export const GETPOSTDETAIL = gql`
 }
 `;
 
-export const GETPOSTFROMCATEGORY = gql`
+export const GET_POST_FROM_CATEGORY = gql`
   query GetCategoriesDetail($slug:String!) {
     findSlug(modelName:"category",slug:$slug){
       ...on CategoryEntityResponse{
@@ -106,8 +107,8 @@ export const GETPOSTFROMCATEGORY = gql`
 }
 `;
 
-export const GETCATEGORYALL = gql`
-  query GetCategoryAll {
+export const GET_CATEGORIES = gql`
+  query GetCategories {
     categories {
       data {
         id
@@ -120,8 +121,8 @@ export const GETCATEGORYALL = gql`
   }
 `;
 
-export const GETUSERS = gql`
-  query GetUser($id: ID!) {
+export const GET_USERS = gql`
+  query GetUsers($id: ID!) {
     usersPermissionsUser(id: $id) {
       data {
         id
@@ -141,7 +142,7 @@ export const GETUSERS = gql`
   }
 `;
 
-export const GETPROJECT = gql`
+export const GET_PROJECTS = gql`
   query GetProject {
     projects {
       data {
@@ -194,12 +195,35 @@ export const GET_PROJECT_DETAIL = gql`
                  data{
                   attributes{
                     name
+                    slug
                   }
                 }
             }
             
           }
         }
+    }
+  }
+}
+`;
+
+export const GET_CERTIFICATES = gql`
+query GetCertificates{
+  certificates {
+    data {
+      id
+      attributes {
+        title
+        body
+        thumbnail {
+          data {
+            attributes {
+              url
+            }
+          }
+        }
+        createdAt
+      }
     }
   }
 }
