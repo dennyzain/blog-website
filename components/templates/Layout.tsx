@@ -13,7 +13,7 @@ export default function Layout(props:LayoutProps) {
   const { children, user, status } = props;
 
   return (
-    <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4  ">
+    <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 min-h-screen ">
       <Navbar user={user} status={status} />
       {children}
       <Footer />

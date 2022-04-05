@@ -6,7 +6,7 @@ module.exports = {
       colors: {
         'dark-mode': '#22272e',
         'dark-mode-secondary': '#373e47',
-        'light-mode': '#ffffff',
+        'light-mode': '#efefef',
         'text-light-mode': '#24292f',
         'text-dark-mode': '#adbac7',
       },

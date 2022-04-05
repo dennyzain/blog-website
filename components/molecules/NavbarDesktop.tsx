@@ -8,11 +8,10 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function NavbarDesktop({ img }: { img: string }) {
-  const { pathname, push } = useRouter();
-  const pathBlog = '/blog/[id]';
-  const pathCategory = '/blog/category/[idCtg]';
-  const handleBack = () => push('/');
-
+  const { route, back } = useRouter();
+  const pathBlog = '/blog/[slug]';
+  const pathCategory = '/blog/category/[slugCtg]';
+  const handleBack = () => back();
   return (
     <div className="relative">
       <div className="flex flex-col w-20 h-auto fixed  left-7 lg:left-24 xl:left-64 top-0 mt-10 ">
@@ -35,12 +34,12 @@ export default function NavbarDesktop({ img }: { img: string }) {
           <FontAwesomeIcon icon={faGithub} className="my-2" />
           <FontAwesomeIcon icon={faLinkedinIn} className="my-2" />
         </div>
-        {pathname === pathBlog || pathname === pathCategory ? (
-          <button onClick={handleBack} type="button" className="font-roboto">
-            <FontAwesomeIcon icon={faArrowLeftLong} bounce className="mt-10 pr-1" />
-            back
-          </button>
-        ) : null}
+        {(route === pathBlog || route === pathCategory) && (
+        <button onClick={handleBack} type="button" className="font-roboto">
+          <FontAwesomeIcon icon={faArrowLeftLong} bounce className="mt-10 pr-1" />
+          back
+        </button>
+        )}
       </div>
     </div>
   );

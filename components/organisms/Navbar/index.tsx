@@ -10,6 +10,7 @@ import { Animate } from '../../atoms/Animate';
 import useDarkMode from '../../hooks/useDarkMode';
 import NavbarDesktop from '../../molecules/NavbarDesktop';
 import Profile from '../../molecules/Profile';
+import style from '../../../styles/animate.module.css';
 
 export default function Navbar({ user, status }: NavbarProps) {
   const [theme, setTheme] = useDarkMode();
@@ -35,7 +36,7 @@ export default function Navbar({ user, status }: NavbarProps) {
   return (
     <>
       <div className="flex justify-between p-3">
-        <h1 className="font-poppins font-extrabold text-xl self-center">DZNX</h1>
+        <h1 className={style['animate-full-color']}>DZNX</h1>
         <button
           type="button"
           aria-label="buttondarkmode"
@@ -82,17 +83,17 @@ export default function Navbar({ user, status }: NavbarProps) {
       <div className="flex justify-around font-poppins border-slate-300 border-b-2 md:mt-3 xl:mt-7">
         <Link href="/">
           <button type="button" className={activeClass}>
-            Post
+            Posts
           </button>
         </Link>
         <Link href="/project">
           <button type="button" className={activeClass}>
-            Project
+            Projects
           </button>
         </Link>
         <Link href="/certificate">
           <button type="button" className={activeClass}>
-            Certificate
+            Certificates
           </button>
         </Link>
       </div>

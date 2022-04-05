@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import toast from 'react-hot-toast';
 import Posts from '../components/organisms/Posts';
-import { initializeApollo } from '../services/client';
+import { addApolloState, initializeApollo } from '../services/client';
 import { GET_POSTS, GET_USERS } from '../services/graphql';
 import { HomeProps } from '../interfaces/PostSection';
 import Layout from '../components/templates/Layout';
@@ -28,7 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     };
   }
-  return {
+  return addApolloState(apolloClient, {
     props: {
       res: {
         loading,
@@ -36,5 +36,5 @@ export const getStaticProps: GetStaticProps = async () => {
         user: user.data.usersPermissionsUser.data,
       },
     },
-  };
+  });
 };

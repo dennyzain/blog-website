@@ -3,11 +3,10 @@ import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import PostDetail from '../../components/organisms/Posts/PostDetail';
 import { DetailPostProps } from '../../interfaces/PostSection';
-import { initializeApollo } from '../../services/client';
+import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_PROJECTS, GET_USERS, GET_PROJECT_DETAIL } from '../../services/graphql';
 
 export default function DetailProject({ data, user }: DetailPostProps) {
-  console.log(user);
   return (
     <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 ">
       <Navbar user={user} status="blog" />
@@ -44,7 +43,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     };
   }
-  return {
+  return addApolloState(apolloClient, {
     props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
-  };
+  });
 };

@@ -1,0 +1,59 @@
+.animate-full-color {
+    background: linear-gradient(70deg, #ee2525, #783ce7, #23a6d5, #23d5ab, #bad523);
+    background-size: 400% 400%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: Gradient 15s ease-in infinite;
+    -moz-animation: Gradient 15s ease-in infinite;
+    animation: Gradient 15s ease-in infinite;
+    font-family: 'Poppins';
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 800;
+    align-self: center;
+  }
+  
+.bg-full-color {
+    background: linear-gradient(70deg, #ee2525, #783ce7, #23a6d5, #23d5ab, #bad523);
+    background-size: 400% 400%;
+    -webkit-animation: Gradient 15s ease-in infinite;
+    -moz-animation: Gradient 15s ease-in infinite;
+    animation: Gradient 15s ease-in infinite; 
+  }
+  
+  @-webkit-keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @-moz-keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  @keyframes Gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }

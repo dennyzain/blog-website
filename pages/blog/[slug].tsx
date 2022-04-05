@@ -3,7 +3,7 @@ import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import PostDetail from '../../components/organisms/Posts/PostDetail';
 import { DetailPostProps, Post } from '../../interfaces/PostSection';
-import client, { initializeApollo } from '../../services/client';
+import client, { addApolloState, initializeApollo } from '../../services/client';
 import { GET_POST_DETAIL, GET_POSTS, GET_USERS } from '../../services/graphql';
 
 export default function DetailBlog({ data, user }: DetailPostProps) {
@@ -40,7 +40,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       },
     };
   }
-  return {
-    props: { data: data.findSlug, user: user.data.usersPermissionsUser.data },
-  };
+  return addApolloState(apolloClient, {
+    props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
+  });
 };

@@ -2,14 +2,11 @@ import { GetStaticProps } from 'next';
 import Certificates from '../../components/organisms/Certificates';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
-import client, { initializeApollo } from '../../services/client';
+import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_USERS, GET_CERTIFICATES } from '../../services/graphql';
 
 export default function Certificate({ res }) {
   const { loading, certificates, user } = res;
-  console.log(certificates);
-  console.log(user);
-
   return (
     <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4  ">
       <Navbar user={user} status="post" />
@@ -31,7 +28,7 @@ export const getStaticProps: GetStaticProps = async () => {
       },
     };
   }
-  return {
+  return addApolloState(apolloClient, {
     props: {
       res: {
         loading,
@@ -39,5 +36,5 @@ export const getStaticProps: GetStaticProps = async () => {
         user: user.data.usersPermissionsUser.data,
       },
     },
-  };
+  });
 };

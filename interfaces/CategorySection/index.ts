@@ -1,7 +1,7 @@
-import { Post } from '../PostSection';
+import { Post, User } from '../PostSection';
 
 export interface Category {
-  category: {
+
     data: {
       id: string;
       attributes: {
@@ -11,11 +11,11 @@ export interface Category {
         };
       };
     };
-  };
 }
 
-export interface CategoryProps {
-  data: Category;
+export interface CategoryProps extends User {
+  data:{data:Category};
+  user:User
 }
 
 export interface CategoryFetchAll{
