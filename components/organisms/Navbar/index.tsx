@@ -6,41 +6,56 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { NavbarProps } from '../../../interfaces/PostSection';
-import { Animate } from '../../atoms/Animate';
 import useDarkMode from '../../hooks/useDarkMode';
 import NavbarDesktop from '../../molecules/NavbarDesktop';
-import Profile from '../../molecules/Profile';
 import style from '../../../styles/animate.module.css';
 
-export default function Navbar({ user, status }: NavbarProps) {
+export default function Navbar({ user, active }: NavbarProps) {
   const [theme, setTheme] = useDarkMode();
+  const [dataOwner, setDataOwner] = useState({
+    id: '',
+    attributes: {
+      username: '',
+      email: '',
+      profile: {
+        data: {
+          attributes: {
+            url: '/01.png',
+          },
+        },
+      },
+    },
+  });
   const { attributes } = user;
   const {
     push, route,
   } = useRouter();
-
   const pathBlog = '/blog/[slug]';
   const pathCategory = '/blog/category/[slugCtg]';
-  const [isProfile, setIsProfile] = useState(false);
   const activeClass = cx({
-    'dark:border-light-mode border-dark-mode border-b-2 ': true,
-    'text-sm md:text-lg xl:text-lg z-10': true,
+    'border-dark-mode border-b-2 mb-2 dark:border-light-mode': true,
   });
-  const handleProfile = () => setIsProfile(!isProfile);
+  const handleProfile = () => push('/about');
   const handleBack = () => push('/');
   const handleDarkMode = () => (theme === 'light' ? setTheme('dark') : setTheme('light'));
 
   useEffect(() => {
+    if (!localStorage.owner) {
+      push('/');
+      localStorage.setItem('owner', JSON.stringify(user));
+    }
+    const local = localStorage.getItem('owner');
+    const parse = JSON.parse(local);
+    setDataOwner(parse);
   }, []);
-
   return (
     <>
       <div className="flex justify-between p-3">
         <h1 className={style['animate-full-color']}>DZNX</h1>
         <button
           type="button"
-          aria-label="buttondarkmode"
-          className="px-2 py-1 border-2 self-center border-dark-mode rounded-lg dark:border-light-mode"
+          aria-label="button-dark-mode"
+          className="px-2 py-1 border-2 self-center border-dark-mode rounded-lg dark:border-light-mode "
           onClick={handleDarkMode}
         >
           {theme === 'light' ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
@@ -59,8 +74,8 @@ export default function Navbar({ user, status }: NavbarProps) {
         ) : (
           <button type="button" className="flex" onClick={handleProfile}>
             <Image
-              src={attributes.profile.data.attributes.url}
-              blurDataURL={attributes.profile.data.attributes.url}
+              src={dataOwner.attributes.profile.data.attributes.url}
+              blurDataURL={dataOwner.attributes.profile.data.attributes.url}
               placeholder="blur"
               width={40}
               height={40}
@@ -73,26 +88,21 @@ export default function Navbar({ user, status }: NavbarProps) {
         )}
       </div>
       <div className="hidden md:block transition-all">
-        <NavbarDesktop img={attributes.profile.data.attributes.url} />
+        <NavbarDesktop img={dataOwner.attributes.profile.data.attributes.url} />
       </div>
-      {isProfile && (
-        <Animate>
-          <Profile />
-        </Animate>
-      )}
       <div className="flex justify-around font-poppins border-slate-300 border-b-2 md:mt-3 xl:mt-7">
         <Link href="/">
-          <button type="button" className={activeClass}>
+          <button type="button" className={`${active === 'post' && activeClass} transition-all duration-500`}>
             Posts
           </button>
         </Link>
         <Link href="/project">
-          <button type="button" className={activeClass}>
+          <button type="button" className={`${active === 'project' && activeClass} transition-all duration-500`}>
             Projects
           </button>
         </Link>
         <Link href="/certificate">
-          <button type="button" className={activeClass}>
+          <button type="button" className={`${active === 'certificate' && activeClass} transition-all duration-500`}>
             Certificates
           </button>
         </Link>

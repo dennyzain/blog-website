@@ -2,17 +2,16 @@ import { GetStaticPaths, GetStaticProps } from 'next';
 import Footer from '../../components/organisms/Footer';
 import Navbar from '../../components/organisms/Navbar';
 import PostDetail from '../../components/organisms/Posts/PostDetail';
+import Layout from '../../components/templates/Layout';
 import { DetailPostProps, Post } from '../../interfaces/PostSection';
 import client, { addApolloState, initializeApollo } from '../../services/client';
 import { GET_POST_DETAIL, GET_POSTS, GET_USERS } from '../../services/graphql';
 
 export default function DetailBlog({ data, user }: DetailPostProps) {
   return (
-    <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 ">
-      <Navbar user={user} status="blog" />
+    <Layout active="post" user={user}>
       <PostDetail data={data} />
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 

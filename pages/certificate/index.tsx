@@ -1,18 +1,15 @@
 import { GetStaticProps } from 'next';
 import Certificates from '../../components/organisms/Certificates';
-import Footer from '../../components/organisms/Footer';
-import Navbar from '../../components/organisms/Navbar';
+import Layout from '../../components/templates/Layout';
 import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_USERS, GET_CERTIFICATES } from '../../services/graphql';
 
 export default function Certificate({ res }) {
   const { loading, certificates, user } = res;
   return (
-    <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4  ">
-      <Navbar user={user} status="post" />
+    <Layout user={user} active="certificate">
       <Certificates data={certificates} />
-      <Footer />
-    </div>
+    </Layout>
   );
 }
 

@@ -12,7 +12,7 @@ export default function Project({ res }: HomeProps) {
   const { user, projects } = res;
   if (projects === null || user === null) toast.error('data sedang error');
   return (
-    <Layout user={user} status="project">
+    <Layout user={user} active="project">
       <Projects data={projects} />
     </Layout>
   );

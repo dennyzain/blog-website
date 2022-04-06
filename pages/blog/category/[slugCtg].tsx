@@ -1,28 +1,27 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Card from '../../../components/molecules/Card';
-import Footer from '../../../components/organisms/Footer';
-import Navbar from '../../../components/organisms/Navbar';
+import Layout from '../../../components/templates/Layout';
 import { CategoryFetchAll, CategoryProps } from '../../../interfaces/CategorySection';
 import { Post } from '../../../interfaces/PostSection';
-import client, { addApolloState, initializeApollo } from '../../../services/client';
+import { addApolloState, initializeApollo } from '../../../services/client';
 import { GET_USERS, GET_CATEGORIES, GET_POST_FROM_CATEGORY } from '../../../services/graphql';
 
 export default function DetailCategory({ data, user }: CategoryProps) {
   const { reviews, name } = data.data.attributes;
   console.log(data);
   return (
-    <div className="md:mx-36 lg:mx-60 xl:mx-96 2xl:mx-auto 2xl:w-2/4 ">
-      <Navbar user={user} status="post" />
-      <h2 className="p-3 font-roboto">
-        Category :
-        {' '}
-        {name}
-      </h2>
-      {reviews.data.map((item:Post) => (
-        <Card key={item.id} data={item} model="category" />
-      ))}
-      <Footer />
-    </div>
+    <Layout active="post" user={user}>
+      <>
+        <h2 className="p-3 font-roboto">
+          Category :
+          {' '}
+          {name}
+        </h2>
+        {reviews.data.map((item:Post) => (
+          <Card key={item.id} data={item} model="category" />
+        ))}
+      </>
+    </Layout>
   );
 }
 

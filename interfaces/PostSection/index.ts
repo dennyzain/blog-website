@@ -43,7 +43,7 @@ export interface User {
 
 export interface NavbarProps {
   user: User;
-  status: string;
+  active:'post'|'project'|'certificate'|'about'
 }
 export interface HomeProps {
   res: {

@@ -8,9 +8,8 @@ import Layout from '../components/templates/Layout';
 
 export default function Home({ res }: HomeProps) {
   const { data, user } = res;
-  if (data === null || user === null) toast.error('data sedang error');
   return (
-    <Layout status="post" user={user}>
+    <Layout user={user} active="post">
       <Posts data={data} />
     </Layout>
   );
