@@ -1,13 +1,13 @@
 import Image from 'next/image';
 import moment from 'moment';
-import { useRouter } from 'next/router';
+import ReactMarkdown from 'react-markdown';
+import Link from 'next/link';
 import Animate from '../atoms/Animate';
 import { CardDetailProps } from '../../interfaces/CardSection';
 import { CategoryFetchAll } from '../../interfaces/CategorySection';
 
 export default function CardDetail({ data }: CardDetailProps) {
   const { attributes } = data;
-  const { push } = useRouter();
   return (
     <Animate>
       <div className="h-auto p-3">
@@ -29,20 +29,21 @@ export default function CardDetail({ data }: CardDetailProps) {
           </p>
           <div className="flex font-roboto">
             {attributes.categories.data.map((category:CategoryFetchAll) => (
-              <button
-                key={category.id}
-                type="button"
-                onClick={() => push(`/blog/category/${category.attributes.slug}`)}
-                className="underline underline-offset-1 px-2 pb-2 cursor-pointer "
-              >
-                {category.attributes.name}
-              </button>
+              <Link href={`/blog/category/${category.attributes.slug}`}>
+                <button
+                  key={category.id}
+                  type="button"
+                  className="underline underline-offset-1 px-2 pb-2 cursor-pointer "
+                >
+                  {category.attributes.name}
+                </button>
+              </Link>
             ))}
           </div>
           <h1 className="text-4xl font-poppins font-bold tracking-wide">{attributes.title}</h1>
         </div>
         <div>
-          <p className="font-roboto tracking-tight p-4">{attributes.body}</p>
+          <ReactMarkdown className="font-roboto tracking-tight p-4">{attributes.body}</ReactMarkdown>
         </div>
       </div>
     </Animate>

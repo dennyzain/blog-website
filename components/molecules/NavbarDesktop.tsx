@@ -28,11 +28,27 @@ export default function NavbarDesktop({ img }: { img: string }) {
         <p className="font-roboto justify-items-start md:text-xs lg:text-base mt-5">
           Hello There, Im a Web Developer
         </p>
-        <div className="flex flex-col mt-6">
-          <FontAwesomeIcon icon={faFacebookF} className="my-2" />
-          <FontAwesomeIcon icon={faTwitter} className="my-2" />
-          <FontAwesomeIcon icon={faGithub} className="my-2" />
-          <FontAwesomeIcon icon={faLinkedinIn} className="my-2" />
+        <div className="flex flex-col justify-center self-center mt-6">
+          <a href="https://facebook.com/denny.az.39/" target="_blank" rel="noreferrer">
+            <button type="button">
+              <FontAwesomeIcon icon={faFacebookF} className="my-2" />
+            </button>
+          </a>
+          <a href="https://twitter.com/abbas_denny" target="_blank" rel="noreferrer">
+            <button type="button">
+              <FontAwesomeIcon icon={faTwitter} className="my-2" />
+            </button>
+          </a>
+          <a href="https://github.com/dennyzain" target="_blank" rel="noreferrer">
+            <button type="button">
+              <FontAwesomeIcon icon={faGithub} className="my-2" />
+            </button>
+          </a>
+          <a href="https://www.linkedin.com/in/denny-abbas-zain-567552194/" target="_blank" rel="noreferrer">
+            <button type="button">
+              <FontAwesomeIcon icon={faLinkedinIn} className="my-2" />
+            </button>
+          </a>
         </div>
         {(route === pathBlog || route === pathCategory) && (
         <button onClick={handleBack} type="button" className="font-roboto">

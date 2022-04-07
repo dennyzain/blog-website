@@ -4,7 +4,6 @@ import cx from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import { NavbarProps } from '../../../interfaces/PostSection';
 import useDarkMode from '../../hooks/useDarkMode';
 import NavbarDesktop from '../../molecules/NavbarDesktop';
@@ -12,20 +11,6 @@ import style from '../../../styles/animate.module.css';
 
 export default function Navbar({ user, active }: NavbarProps) {
   const [theme, setTheme] = useDarkMode();
-  const [dataOwner, setDataOwner] = useState({
-    id: '',
-    attributes: {
-      username: '',
-      email: '',
-      profile: {
-        data: {
-          attributes: {
-            url: '/01.png',
-          },
-        },
-      },
-    },
-  });
   const { attributes } = user;
   const {
     push, route,
@@ -39,17 +24,6 @@ export default function Navbar({ user, active }: NavbarProps) {
   const handleBack = () => push('/');
   const handleDarkMode = () => (theme === 'light' ? setTheme('dark') : setTheme('light'));
 
-  useEffect(() => {
-    if (!localStorage.owner) {
-      push('/');
-      localStorage.setItem('owner', JSON.stringify(user));
-      setDataOwner(user);
-    } else {
-      const local = localStorage.getItem('owner');
-      const parse = JSON.parse(local);
-      setDataOwner(parse);
-    }
-  }, []);
   return (
     <>
       <div className="flex justify-between p-3">

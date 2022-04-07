@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import React from 'react';
+import { ReactNode } from 'react';
 
 const variants = {
   visible: {
@@ -10,7 +10,7 @@ const variants = {
 
 };
 
-export default function Animate({ children }:{children:any}) {
+export default function Animate({ children }:{children:ReactNode}) {
   return (
     <motion.div
       initial={variants.hidden}

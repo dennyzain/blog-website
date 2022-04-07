@@ -1,10 +1,10 @@
-import React, { ReactElement } from 'react';
+import { ReactNode } from 'react';
 import { User } from '../../interfaces/PostSection';
 import Footer from '../organisms/Footer';
 import Navbar from '../organisms/Navbar';
 
 interface LayoutProps{
-    children:ReactElement;
+    children:ReactNode;
     user:User
     active:'post'|'project'|'certificate'|'about'
 }
