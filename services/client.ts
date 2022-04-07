@@ -31,6 +31,7 @@ function createApolloClient() {
 }
 
 export function initializeApollo(initialState: NormalizedCacheObject | null = null) {
+  // eslint-disable-next-line no-underscore-dangle
   const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
@@ -63,6 +64,7 @@ export function initializeApollo(initialState: NormalizedCacheObject | null = nu
 
 export function addApolloState(client: ApolloClient<NormalizedCacheObject>, pageProps: any) {
   if (pageProps?.props) {
+    // eslint-disable-next-line no-param-reassign
     pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }
 

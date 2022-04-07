@@ -7,8 +7,7 @@ import { addApolloState, initializeApollo } from '../../../services/client';
 import { GET_USERS, GET_CATEGORIES, GET_POST_FROM_CATEGORY } from '../../../services/graphql';
 
 export default function DetailCategory({ data, user }: CategoryProps) {
-  const { reviews, name } = data.data.attributes;
-  console.log(data);
+  const { reviews, name } = data.attributes;
   return (
     <Layout active="post" user={user}>
       <>
@@ -53,6 +52,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
   return addApolloState(apolloClient, {
-    props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
+    props: { loading, data: data.findSlug.data, user: user.data.usersPermissionsUser.data },
   });
 };

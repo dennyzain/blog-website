@@ -43,10 +43,12 @@ export default function Navbar({ user, active }: NavbarProps) {
     if (!localStorage.owner) {
       push('/');
       localStorage.setItem('owner', JSON.stringify(user));
+      setDataOwner(user);
+    } else {
+      const local = localStorage.getItem('owner');
+      const parse = JSON.parse(local);
+      setDataOwner(parse);
     }
-    const local = localStorage.getItem('owner');
-    const parse = JSON.parse(local);
-    setDataOwner(parse);
   }, []);
   return (
     <>
@@ -74,8 +76,8 @@ export default function Navbar({ user, active }: NavbarProps) {
         ) : (
           <button type="button" className="flex" onClick={handleProfile}>
             <Image
-              src={dataOwner.attributes.profile.data.attributes.url}
-              blurDataURL={dataOwner.attributes.profile.data.attributes.url}
+              src={attributes.profile.data.attributes.url}
+              blurDataURL={attributes.profile.data.attributes.url}
               placeholder="blur"
               width={40}
               height={40}
@@ -88,9 +90,9 @@ export default function Navbar({ user, active }: NavbarProps) {
         )}
       </div>
       <div className="hidden md:block transition-all">
-        <NavbarDesktop img={dataOwner.attributes.profile.data.attributes.url} />
+        <NavbarDesktop img={attributes.profile.data.attributes.url} />
       </div>
-      <div className="flex justify-around font-poppins border-slate-300 border-b-2 md:mt-3 xl:mt-7">
+      <div className="flex justify-around font-poppins border-text-light-mode border-b md:mt-3 xl:mt-7 dark:border-text-dark-mode">
         <Link href="/">
           <button type="button" className={`${active === 'post' && activeClass} transition-all duration-500`}>
             Posts

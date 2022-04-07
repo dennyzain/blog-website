@@ -1,12 +1,12 @@
 import Image from 'next/image';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { DetailPostProps } from '../../../interfaces/PostSection';
-import { Animate } from '../../atoms/Animate';
+import Animate from '../atoms/Animate';
+import { CardDetailProps } from '../../interfaces/CardSection';
+import { CategoryFetchAll } from '../../interfaces/CategorySection';
 
-export default function PostDetail({ data }: DetailPostProps) {
-  const { attributes } = data.data;
-  console.log(attributes);
+export default function CardDetail({ data }: CardDetailProps) {
+  const { attributes } = data;
   const { push } = useRouter();
   return (
     <Animate>
@@ -28,7 +28,7 @@ export default function PostDetail({ data }: DetailPostProps) {
             {moment(attributes.createdAt).format('dddd, MMMM Do YYYY ')}
           </p>
           <div className="flex font-roboto">
-            {attributes.categories.data.map((category) => (
+            {attributes.categories.data.map((category:CategoryFetchAll) => (
               <button
                 key={category.id}
                 type="button"

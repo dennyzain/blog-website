@@ -1,14 +1,14 @@
 import { GetStaticProps } from 'next';
 import Certificates from '../../components/organisms/Certificates';
 import Layout from '../../components/templates/Layout';
+import { MainCertificatesProps } from '../../interfaces/CertificateSections';
 import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_USERS, GET_CERTIFICATES } from '../../services/graphql';
 
-export default function Certificate({ res }) {
-  const { loading, certificates, user } = res;
+export default function Certificate({ data, user }:MainCertificatesProps) {
   return (
     <Layout user={user} active="certificate">
-      <Certificates data={certificates} />
+      <Certificates data={data} />
     </Layout>
   );
 }
@@ -27,11 +27,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
   return addApolloState(apolloClient, {
     props: {
-      res: {
-        loading,
-        certificates: data.certificates.data,
-        user: user.data.usersPermissionsUser.data,
-      },
+      loading,
+      data: data.certificates.data,
+      user: user.data.usersPermissionsUser.data,
     },
   });
 };

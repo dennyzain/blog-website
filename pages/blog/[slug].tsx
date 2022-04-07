@@ -1,16 +1,14 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import Footer from '../../components/organisms/Footer';
-import Navbar from '../../components/organisms/Navbar';
-import PostDetail from '../../components/organisms/Posts/PostDetail';
+import CardDetail from '../../components/molecules/CardDetail';
 import Layout from '../../components/templates/Layout';
 import { DetailPostProps, Post } from '../../interfaces/PostSection';
-import client, { addApolloState, initializeApollo } from '../../services/client';
+import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_POST_DETAIL, GET_POSTS, GET_USERS } from '../../services/graphql';
 
 export default function DetailBlog({ data, user }: DetailPostProps) {
   return (
     <Layout active="post" user={user}>
-      <PostDetail data={data} />
+      <CardDetail data={data} />
     </Layout>
   );
 }
@@ -29,7 +27,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const apolloClient = initializeApollo();
-  const { data, error, loading } = await apolloClient.query({ query: GET_POST_DETAIL, variables: { slug: params!.slug } });
+  const { data, error, loading } = await apolloClient.query({
+    query: GET_POST_DETAIL,
+    variables: { slug: params!.slug },
+  });
   const user = await apolloClient.query({ query: GET_USERS, variables: { id: 1 } });
   if (error || user.error) {
     return {
@@ -40,6 +41,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
   return addApolloState(apolloClient, {
-    props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
+    props: { loading, data: data.findSlug.data, user: user.data.usersPermissionsUser.data },
   });
 };

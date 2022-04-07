@@ -2,13 +2,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import moment from 'moment';
 import { useRouter } from 'next/router';
-import { Animate } from '../atoms/Animate';
+import Animate from '../atoms/Animate';
 import { CardProps } from '../../interfaces/CardSection';
+import { CategoryFetchAll } from '../../interfaces/CategorySection';
 
 export default function Card({ data, model }: CardProps) {
   const { attributes } = data;
   const { slug } = attributes;
-  const location = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `/blog/${slug}`;
+  const location:string = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `/blog/${slug}`;
   const { push } = useRouter();
   return (
     <Animate>
@@ -32,38 +33,46 @@ export default function Card({ data, model }: CardProps) {
             {moment(attributes.createdAt).format('dddd, MMMM Do YYYY ')}
           </p>
           <div className="flex font-roboto">
-            {model !== 'certificate' && attributes.categories.data.map((category) => (
-              <button
-                key={category.id}
-                type="button"
-                onClick={() => push(`/blog/category/${category.attributes.slug}`)}
-                className="underline underline-offset-1 px-2 pb-2 cursor-pointer "
-              >
-                {category.attributes.name}
-              </button>
+            {model !== 'certificate' && attributes.categories.data.map((category:CategoryFetchAll) => (
+              <Link key={category.id} href={`/blog/category/${category.attributes.slug}`}>
+                <button
+                  type="button"
+                  className="underline underline-offset-1 px-2 pb-2 cursor-pointer "
+                >
+                  {category.attributes.name}
+                </button>
+              </Link>
             ))}
           </div>
-          <Link href={location}>
+          {model !== 'certificate' ? (
+            <Link href={location}>
+              <h1 className="text-4xl font-poppins font-bold tracking-wide cursor-pointer">
+                {attributes.title}
+              </h1>
+            </Link>
+          ) : (
             <h1 className="text-4xl font-poppins font-bold tracking-wide cursor-pointer">
               {attributes.title}
             </h1>
-          </Link>
+          )}
         </div>
         <div className="font-roboto tracking-tight px-4 pt-4 block">
           <p>{attributes.body.substring(0, 200)}</p>
         </div>
-        <Link href={location}>
-          <button
-            type="button"
-            className="px-4 font-roboto underline underline-offset-1 cursor-pointer"
-          >
-            <p className="text-text-light-mode transition-colors duration-200  dark:text-text-dark-mode">
-              Read More...
-            </p>
-          </button>
-        </Link>
+        { model !== 'certificate' && (
+          <Link href={location}>
+            <button
+              type="button"
+              className="px-4 font-roboto underline underline-offset-1 cursor-pointer"
+            >
+              <p className="text-text-light-mode transition-colors duration-200  dark:text-text-dark-mode">
+                Read More...
+              </p>
+            </button>
+          </Link>
+        )}
       </div>
-      <hr />
+      <hr className="border-text-light-mode dark:border-text-dark-mode" />
     </Animate>
   );
 }

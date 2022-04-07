@@ -1,19 +1,16 @@
 import { GetStaticProps } from 'next';
-import toast from 'react-hot-toast';
 import Projects from '../../components/organisms/Projects';
 import Layout from '../../components/templates/Layout';
 import { addApolloState, initializeApollo } from '../../services/client';
-import { HomeProps } from '../../interfaces/PostSection';
 import {
   GET_PROJECTS, GET_USERS,
 } from '../../services/graphql';
+import { MainProjectProps } from '../../interfaces/ProjectSection';
 
-export default function Project({ res }: HomeProps) {
-  const { user, projects } = res;
-  if (projects === null || user === null) toast.error('data sedang error');
+export default function Project({ user, data }: MainProjectProps) {
   return (
     <Layout user={user} active="project">
-      <Projects data={projects} />
+      <Projects data={data} />
     </Layout>
   );
 }
@@ -32,11 +29,9 @@ export const getStaticProps: GetStaticProps = async () => {
   }
   return addApolloState(apolloClient, {
     props: {
-      res: {
-        loading,
-        projects: data.projects.data,
-        user: user.data.usersPermissionsUser.data,
-      },
+      loading,
+      data: data.projects.data,
+      user: user.data.usersPermissionsUser.data,
     },
   });
 };

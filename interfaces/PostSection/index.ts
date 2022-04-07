@@ -45,19 +45,18 @@ export interface NavbarProps {
   user: User;
   active:'post'|'project'|'certificate'|'about'
 }
-export interface HomeProps {
-  res: {
-    data: Post[];
-    user: User;
-  };
-}
 
-export interface PostsProps {
-  data: Post[];
-}
 export interface PostProps {
   data: Post;
 }
+export interface PostsProps {
+  data: Array<Post>;
+}
+export interface HomeProps extends PostsProps{
+  user:User;
+}
 export interface DetailPostProps {
-  data: { data: Post };
+  data: Post;
+  user:User;
+
 }

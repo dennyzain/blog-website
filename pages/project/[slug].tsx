@@ -1,14 +1,14 @@
 import { GetStaticPaths, GetStaticProps } from 'next';
-import PostDetail from '../../components/organisms/Posts/PostDetail';
+import CardDetail from '../../components/molecules/CardDetail';
 import Layout from '../../components/templates/Layout';
-import { DetailPostProps } from '../../interfaces/PostSection';
+import { Project, ProjectDetailProps } from '../../interfaces/ProjectSection';
 import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_PROJECTS, GET_USERS, GET_PROJECT_DETAIL } from '../../services/graphql';
 
-export default function DetailProject({ data, user }: DetailPostProps) {
+export default function DetailProject({ data, user }: ProjectDetailProps) {
   return (
     <Layout user={user} active="project">
-      <PostDetail data={data} />
+      <CardDetail data={data} />
     </Layout>
   );
 }
@@ -16,7 +16,7 @@ export default function DetailProject({ data, user }: DetailPostProps) {
 export const getStaticPaths: GetStaticPaths = async () => {
   const apolloClient = initializeApollo();
   const { data } = await apolloClient.query({ query: GET_PROJECTS });
-  const paths = data.projects.data.map((project) => ({
+  const paths = data.projects.data.map((project:Project) => ({
     params: { slug: `${project.attributes.slug}` },
   }));
   return {
@@ -41,6 +41,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
   return addApolloState(apolloClient, {
-    props: { loading, data: data.findSlug, user: user.data.usersPermissionsUser.data },
+    props: { loading, data: data.findSlug.data, user: user.data.usersPermissionsUser.data },
   });
 };
