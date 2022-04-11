@@ -16,6 +16,7 @@ module.exports = {
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
         roboto: ['Roboto Mono', 'sans-serif'],
+        inter: ['Inter', 'sans-serif'],
       },
       animation: {
         slow: 'fade-Out .7s linear 1',

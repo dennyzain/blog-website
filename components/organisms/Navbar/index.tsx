@@ -67,17 +67,17 @@ export default function Navbar({ user, active }: NavbarProps) {
       </div>
       <div className="flex justify-around font-poppins border-text-light-mode border-b md:mt-3 xl:mt-7 dark:border-text-dark-mode">
         <Link href="/">
-          <button type="button" className={`${active === 'post' && activeClass} transition-all duration-500`}>
+          <button type="button" className={`${active === 'post' && activeClass} transition-all duration-500 font-inter lg:text-xl `}>
             Posts
           </button>
         </Link>
         <Link href="/project">
-          <button type="button" className={`${active === 'project' && activeClass} transition-all duration-500`}>
+          <button type="button" className={`${active === 'project' && activeClass} transition-all duration-500 font-inter lg:text-xl`}>
             Projects
           </button>
         </Link>
         <Link href="/certificate">
-          <button type="button" className={`${active === 'certificate' && activeClass} transition-all duration-500`}>
+          <button type="button" className={`${active === 'certificate' && activeClass} transition-all duration-500 font-inter lg:text-xl`}>
             Certificates
           </button>
         </Link>

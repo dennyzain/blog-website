@@ -215,6 +215,7 @@ export const GET_CERTIFICATES = gql`
         attributes {
           title
           body
+          link
           thumbnail {
             data {
               attributes {

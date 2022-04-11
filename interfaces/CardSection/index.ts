@@ -16,6 +16,7 @@ export interface CardProps {
           };
         };
       };
+      link?:string;
       createdAt: string;
       categories?: {
         data: [
