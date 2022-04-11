@@ -7,9 +7,9 @@ import { CategoryFetchAll } from '../../interfaces/CategorySection';
 
 export default function Card({ data, model }: CardProps) {
   const {
-    slug, title, categories, thumbnail, body, createdAt,
+    slug, title, categories, thumbnail, body, createdAt, link,
   } = data.attributes;
-  const location:string = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `/blog/${slug}`;
+  const location: string = model === 'post' ? `/blog/${slug}` : model === 'project' ? `/project/${slug}` : `/blog/${slug}`;
   return (
     <Animate>
       <div className="h-auto box-border p-3 pb-3 my-4 mx-2 rounded-lg  dark:bg-dark-mode-secondary transition-colors duration-200 ">
@@ -32,16 +32,18 @@ export default function Card({ data, model }: CardProps) {
             {moment(createdAt).format('dddd, MMMM Do YYYY ')}
           </p>
           <div className="flex font-roboto">
-            {(model !== 'certificate' && categories) && categories.data.map((category:CategoryFetchAll) => (
-              <Link key={category.id} href={`/blog/category/${category.attributes.slug}`}>
-                <button
-                  type="button"
-                  className="text-base lg:text-sm underline underline-offset-1 px-2 pb-2 cursor-pointer "
-                >
-                  {category.attributes.name}
-                </button>
-              </Link>
-            ))}
+            {model !== 'certificate'
+              && categories
+              && categories.data.map((category: CategoryFetchAll) => (
+                <Link key={category.id} href={`/blog/category/${category.attributes.slug}`}>
+                  <button
+                    type="button"
+                    className="text-base lg:text-sm underline underline-offset-1 px-2 pb-2 cursor-pointer "
+                  >
+                    {category.attributes.name}
+                  </button>
+                </Link>
+              ))}
           </div>
           {model !== 'certificate' ? (
             <Link href={location}>
@@ -51,14 +53,16 @@ export default function Card({ data, model }: CardProps) {
             </Link>
           ) : (
             <h1 className="text-2xl lg:text-text-4xl font-poppins font-bold tracking-wide cursor-pointer">
-              {title}
+              <a href={link} target="_blank" rel="noreferrer">
+                {title}
+              </a>
             </h1>
           )}
         </div>
         <div className="font-roboto tracking-tight  px-4 pt-2 block">
           {model !== 'certificate' && <p>{body.substring(0, 180)}</p>}
         </div>
-        { model !== 'certificate' && (
+        {model !== 'certificate' && (
           <Link href={location}>
             <button
               type="button"
