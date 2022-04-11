@@ -31,6 +31,7 @@ export interface User {
   attributes: {
     username: string;
     email: string;
+    description:string;
     profile: {
       data: {
         attributes: {

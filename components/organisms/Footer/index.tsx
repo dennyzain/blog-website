@@ -11,7 +11,7 @@ export default function Footer() {
         &#128525;
         by Denny Abbas Zain
       </p>
-      <div className={`${style['bg-full-color']} h-2 z-50 w-full left-0 bottom-0 right-0 `} />
+      <div className={`${style['bg-full-color']} h-4 md:h-3 lg:h-2  z-50 w-full left-0 bottom-0 right-0 `} />
     </footer>
   );
 }

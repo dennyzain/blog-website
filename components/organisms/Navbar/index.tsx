@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { NavbarProps } from '../../../interfaces/PostSection';
 import useDarkMode from '../../hooks/useDarkMode';
-import NavbarDesktop from '../../molecules/NavbarDesktop';
+import NavbarDesktop from './NavbarDesktop';
 import style from '../../../styles/animate.module.css';
 
 export default function Navbar({ user, active }: NavbarProps) {
@@ -23,10 +23,9 @@ export default function Navbar({ user, active }: NavbarProps) {
   const handleProfile = () => push('/about');
   const handleBack = () => push('/');
   const handleDarkMode = () => (theme === 'light' ? setTheme('dark') : setTheme('light'));
-
   return (
     <>
-      <div className="flex justify-between p-3">
+      <nav className="flex justify-between p-3">
         <h1 className={style['animate-full-color']}>DZNX</h1>
         <button
           type="button"
@@ -36,7 +35,7 @@ export default function Navbar({ user, active }: NavbarProps) {
         >
           {theme === 'light' ? <FontAwesomeIcon icon={faMoon} /> : <FontAwesomeIcon icon={faSun} />}
         </button>
-      </div>
+      </nav>
       <div className="flex justify-between py-3 px-6 md:hidden ">
         {route === pathBlog || route === pathCategory ? (
           <button onClick={handleBack} type="button" className="font-roboto">
@@ -59,7 +58,7 @@ export default function Navbar({ user, active }: NavbarProps) {
               className="rounded-full"
 
             />
-            <p className="self-center text-xs pl-1  font-poppins">Who am i ?</p>
+            <p className="self-center text-xs pl-2 underline underline-offset-1 font-poppins">Denny Abbas Zain</p>
           </button>
         )}
       </div>

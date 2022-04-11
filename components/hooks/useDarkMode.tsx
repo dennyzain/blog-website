@@ -4,6 +4,7 @@ const useDarkMode = () => {
   const [theme, setTheme] = useState<string>('light');
 
   useEffect(() => {
+    if (!localStorage.theme)localStorage.setItem('theme', 'light');
     const local = localStorage.getItem('theme');
     setTheme(local!);
   }, []);

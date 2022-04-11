@@ -1,54 +1,22 @@
 import { gql } from '@apollo/client';
 
 export const GET_POSTS = gql`
-query GetPosts {
-  reviews {
-    data {
-      id
-      attributes {
-        title
-        body
-        slug
-        thumbnail {
-          data {
-            attributes {
-              url
-            }
-          }
-        }
-        createdAt
-        categories {
-          data {
-            id
-            attributes {
-              name
-              slug
-            }
-          }
-        }
-      }
-    }
-  }
-}
-`;
-
-export const GET_POST_DETAIL = gql`
-  query GetPostDetail($slug:String!) {
-    findSlug(modelName:"review",slug:$slug){
-      ...on ReviewEntityResponse{
+  query GetPosts {
+    reviews {
       data {
         id
         attributes {
           title
           body
+          slug
           thumbnail {
             data {
-              id
               attributes {
                 url
               }
             }
           }
+          createdAt
           categories {
             data {
               id
@@ -62,38 +30,71 @@ export const GET_POST_DETAIL = gql`
       }
     }
   }
-}
+`;
+
+export const GET_POST_DETAIL = gql`
+  query GetPostDetail($slug: String!) {
+    findSlug(modelName: "review", slug: $slug) {
+      ... on ReviewEntityResponse {
+        data {
+          id
+          attributes {
+            title
+            body
+            thumbnail {
+              data {
+                id
+                attributes {
+                  url
+                }
+              }
+            }
+            categories {
+              data {
+                id
+                attributes {
+                  name
+                  slug
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const GET_POST_FROM_CATEGORY = gql`
-  query GetCategoriesDetail($slug:String!) {
-    findSlug(modelName:"category",slug:$slug){
-      ...on CategoryEntityResponse{
-      data {
-        id
-        attributes {
-          name
-          reviews {
-            data {
-              id
-              attributes {
-                title
-                body
-                slug
-                thumbnail {
-                  data {
-                    attributes {
-                      url
+  query GetCategoriesDetail($slug: String!) {
+    findSlug(modelName: "category", slug: $slug) {
+      ... on CategoryEntityResponse {
+        data {
+          id
+          attributes {
+            name
+            reviews {
+              data {
+                id
+                attributes {
+                  title
+                  body
+                  slug
+                  thumbnail {
+                    data {
+                      attributes {
+                        url
+                      }
                     }
                   }
-                }
-                createdAt
-                categories {
-                  data {
-                    id
-                    attributes {
-                      name
-                      slug
+                  createdAt
+                  categories {
+                    data {
+                      id
+                      attributes {
+                        name
+                        slug
+                      }
                     }
                   }
                 }
@@ -104,7 +105,6 @@ export const GET_POST_FROM_CATEGORY = gql`
       }
     }
   }
-}
 `;
 
 export const GET_CATEGORIES = gql`
@@ -129,6 +129,7 @@ export const GET_USERS = gql`
         attributes {
           email
           username
+          description
           profile {
             data {
               attributes {
@@ -174,57 +175,56 @@ export const GET_PROJECTS = gql`
   }
 `;
 export const GET_PROJECT_DETAIL = gql`
-  query GetProjectDetail($slug:String!) {
-  findSlug(modelName:"project",slug:$slug){
-    ...on ProjectEntityResponse{
-        data{
+  query GetProjectDetail($slug: String!) {
+    findSlug(modelName: "project", slug: $slug) {
+      ... on ProjectEntityResponse {
+        data {
           id
-          attributes{
+          attributes {
             title
             body
             createdAt
-            
-            thumbnail{
-              data{
-                attributes{
+
+            thumbnail {
+              data {
+                attributes {
                   url
                 }
               }
             }
-            categories{
-                 data{
-                  attributes{
-                    name
-                    slug
-                  }
+            categories {
+              data {
+                attributes {
+                  name
+                  slug
                 }
-            }
-            
-          }
-        }
-    }
-  }
-}
-`;
-
-export const GET_CERTIFICATES = gql`
-query GetCertificates{
-  certificates {
-    data {
-      id
-      attributes {
-        title
-        body
-        thumbnail {
-          data {
-            attributes {
-              url
+              }
             }
           }
         }
-        createdAt
       }
     }
   }
-}
+`;
+
+export const GET_CERTIFICATES = gql`
+  query GetCertificates {
+    certificates {
+      data {
+        id
+        attributes {
+          title
+          body
+          thumbnail {
+            data {
+              attributes {
+                url
+              }
+            }
+          }
+          createdAt
+        }
+      }
+    }
+  }
 `;

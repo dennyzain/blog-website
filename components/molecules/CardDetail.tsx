@@ -19,7 +19,6 @@ export default function CardDetail({ data }: CardDetailProps) {
           blurDataURL={`${attributes.thumbnail.data.attributes.url}`}
           placeholder="blur"
           layout="responsive"
-          sizes=""
           alt="jumbotron"
           className=" rounded-lg"
         />

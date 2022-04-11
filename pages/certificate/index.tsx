@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next';
 import Certificates from '../../components/organisms/Certificates';
 import Layout from '../../components/templates/Layout';
-import { MainCertificatesProps } from '../../interfaces/CertificateSections';
+import { MainCertificatesProps } from '../../interfaces/CertificateSection';
 import { addApolloState, initializeApollo } from '../../services/client';
 import { GET_USERS, GET_CERTIFICATES } from '../../services/graphql';
 
