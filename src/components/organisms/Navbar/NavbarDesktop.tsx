@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   faFacebookF, faGithub, faInstagram, faLinkedinIn, faTwitter,
 } from '@fortawesome/free-brands-svg-icons';
@@ -6,7 +7,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
 
 export default function NavbarDesktop({ img }: { img: string }) {
   const { route, back } = useRouter();

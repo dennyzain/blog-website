@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
-import { User } from '../../interfaces/PostSection';
-import Footer from '../organisms/Footer';
-import Navbar from '../organisms/Navbar';
+import Footer from '@components/organisms/Footer';
+import Navbar from '@components/organisms/Navbar';
+import { User } from '@/interfaces/PostSection';
 
 interface LayoutProps{
     children:ReactNode;

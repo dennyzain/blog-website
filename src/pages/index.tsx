@@ -1,9 +1,9 @@
 import { GetStaticProps } from 'next';
-import Posts from '../components/organisms/Posts';
-import { addApolloState, initializeApollo } from '../services/client';
-import { GET_POSTS, GET_USERS } from '../services/graphql';
-import { HomeProps } from '../interfaces/PostSection';
-import Layout from '../components/templates/Layout';
+import Layout from '@components/templates/Layout';
+import Posts from '@components/organisms/Posts';
+import { addApolloState, initializeApollo } from '@/services/client';
+import { GET_POSTS, GET_USERS } from '@/services/graphql';
+import { HomeProps } from '@/interfaces/PostSection';
 
 export default function Home({ data, user }: HomeProps) {
   return (

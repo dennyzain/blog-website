@@ -4,10 +4,10 @@ import cx from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { NavbarProps } from '../../../interfaces/PostSection';
-import useDarkMode from '../../hooks/useDarkMode';
-import NavbarDesktop from './NavbarDesktop';
-import style from '../../../styles/animate.module.css';
+import NavbarDesktop from '@components/organisms/Navbar/NavbarDesktop';
+import { NavbarProps } from '@/interfaces/PostSection';
+import useDarkMode from '@/hooks/useDarkMode';
+import style from '@/styles/animate.module.css';
 
 export default function Navbar({ user, active }: NavbarProps) {
   const [theme, setTheme] = useDarkMode();

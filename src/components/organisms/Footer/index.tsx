@@ -1,4 +1,4 @@
-import style from '../../../styles/animate.module.css';
+import style from '@/styles/animate.module.css';
 
 export default function Footer() {
   return (
