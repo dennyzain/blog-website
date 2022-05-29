@@ -26,6 +26,6 @@
         "import/extensions": "off",
         "import/no-unresolved": "off",
         "react/jsx-props-no-spreading": "off",
-        "no-nested-ternary":"off"
+        "react/function-component-definition": "off"
     }
 }

@@ -1,4 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display&family=Poppins:wght@500&display=swap&family=Inter:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display&family=Poppins:wght@500&display=swap&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.layout{
+    @apply bg-secondary text-primary px-3 md:px-8 lg:px-10 xl:px-44 
+}

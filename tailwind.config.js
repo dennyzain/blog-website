@@ -1,17 +1,14 @@
 module.exports = {
   darkMode: 'class',
-  content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  content: ['./src/pages/**/*.{js,ts,jsx,tsx}', './src/components/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       height: {
         110: '30rem',
       },
       colors: {
-        'dark-mode': '#22272e',
-        'dark-mode-secondary': '#373e47',
-        'light-mode': '#efefef',
-        'text-light-mode': '#24292f',
-        'text-dark-mode': '#adbac7',
+        secondary: '#eaeae7',
+        primary: '#222222',
       },
       fontFamily: {
         poppins: ['Poppins', 'sans-serif'],
